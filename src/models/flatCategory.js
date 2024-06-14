@@ -85,4 +85,3 @@ FlatCategory.init(
 );
 
 
-await dbConnect.sync({alter: true})

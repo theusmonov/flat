@@ -4,7 +4,7 @@ import { bcryptHash, jwtRefreshToken, jwtSignToken } from "../../utils/helper.js
 
 
 
-const loginServices = async (data) => {
+const loginServices = async (data, isAdmin = false) => {
     const {email, password} = data;
 
     const user = await User.findOne({
@@ -21,8 +21,9 @@ const loginServices = async (data) => {
         throw new UnauthorizedError("Invalid email or password");
     }
 
-    const access_token = jwtSignToken.sign({email, password});
-    const refresh_token = jwtRefreshToken({email, password});
+    const role = isAdmin ? "admin" : "user";
+    const access_token = jwtSignToken.sign({email, password, role});
+    const refresh_token = jwtRefreshToken({email, password, role});
 
     return {access_token, refresh_token, user_id: user.id};
 

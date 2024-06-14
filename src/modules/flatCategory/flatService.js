@@ -1,4 +1,5 @@
 import { FlatCategory } from "../../models/flatCategory.js";
+import { FlatItem } from "../../models/flatItem.js";
 import { BadRequestError, NotFoundError } from "../../shared/errors/classes.js";
 import { url } from "../../utils/baseUrl.js";
 
@@ -43,7 +44,9 @@ const flatCreate = async (data, req) => {
 
 
 const flatCategoryGetAll = async () => {
-  const getData = await FlatCategory.findAll();
+  const getData = await FlatCategory.findAll({
+    include: FlatItem
+  });
 
   if (getData.length === 0) {
     throw new NotFoundError("Flat all categories not found");
@@ -67,6 +70,8 @@ const flatCategoryGetAll = async () => {
     isitish_tizimi: category.isitish_tizimi,
     territoriya: category.territoriya,
     telefon: category.telefon,
+    flatItemCount: category.FlatItems.length
+
   }));
 
   return data;
@@ -76,7 +81,10 @@ const flatCategoryGetAll = async () => {
 
 const getFlatCategoryById = async (id) => {
 
-  const findCategory = await FlatCategory.findByPk(id);
+  const findCategory = await FlatCategory.findOne({
+    where: {id},
+    include: [FlatItem]
+  });
 
   if (!findCategory) {
     throw new NotFoundError(`This id ${id} flat category not found`);

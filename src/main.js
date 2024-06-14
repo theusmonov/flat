@@ -6,6 +6,7 @@ import cors from 'cors';
 import mainRouter from "./_api.js";
 import ErrorHandle from "./shared/errors/errorStatus.js"
 import path from "path"
+import { modelSync, relation } from "./utils/relation.js";
 const app = express();
 
 app.use(cors());
@@ -18,6 +19,8 @@ app.use(express.static(path.join(process.cwd(), "upload")));
 
 
 const startAppServer = async () => {
+ await relation()
+ await modelSync()
 
   try {
     await dbConnect.authenticate();

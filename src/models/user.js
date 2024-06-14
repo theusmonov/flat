@@ -30,8 +30,8 @@ User.init({
     },
     role: {
         type: DataTypes.STRING,
-        defaultValue: User_role.ADMIN,
-        enum: [User_role.ADMIN]
+        defaultValue: User_role.USER,
+        enum: [User_role.ADMIN, User_role.USER],
     }
 },{
     sequelize: dbConnect,
