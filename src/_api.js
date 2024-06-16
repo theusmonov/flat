@@ -14,6 +14,6 @@ mainRouter.use(flatRouter);
 mainRouter.use(flatItemRouter);
 mainRouter.use(flatChildRouter);
 mainRouter.use(messageRouter);
-mainRouter.use(userRouter)
+mainRouter.use(userRouter);
 
 export default mainRouter;

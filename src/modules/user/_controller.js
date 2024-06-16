@@ -1,4 +1,4 @@
-import { getAdmins, getUsers } from "./userService.js";
+import { deleteAdminById, getAdmins, getUsers } from "./userService.js";
 
 
 
@@ -22,4 +22,15 @@ const GetUsers = async (req, res, next) => {
 }
 
 
-export {GetAdmins, GetUsers}
+
+const DeleteAdmin = async (req, res, next) => {
+    try {
+        const data = deleteAdminById(req.params.id);
+        return res.status(200).json({message: "Admin user deleted successfully"})
+    } catch (err) {
+        next(err)
+    }
+}
+
+
+export {GetAdmins, GetUsers, DeleteAdmin}

@@ -32,4 +32,19 @@ const getUsers = async () => {
     return data;
 }
 
-export {getAdmins, getUsers}
+
+
+
+const deleteAdminById = async (id) => {
+
+    const data = User.findByPk(id);
+
+    if(!data){
+        throw new NotFoundError("Not found this uuid admin")
+    }
+
+    await User.destroy({ where: { id} });
+}
+
+
+export {getAdmins, getUsers, deleteAdminById}

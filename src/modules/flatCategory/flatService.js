@@ -29,9 +29,6 @@ const flatCreate = async (data, req) => {
     },
   });
 
-  if (existCategory) {
-    throw new BadRequestError("This category already exists");
-  }
 
   const createCategory = await FlatCategory.create({
     ...data,
